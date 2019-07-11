@@ -17,36 +17,36 @@ class _HomeState extends State<Home> {
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  var _info = "Info";
+  var _info = "";
 
   void _clearFields() {
     weightController.text = "";
     heightController.text = "";
     setState(() {
-      _info = "Informe os dados";
+      _info = "";
       _formKey = GlobalKey<FormState>();
     });
   }
 
   void _calculate() {
     setState(() {
-      double weight = double.parse(weightController.text);
-      double height = double.parse(heightController.text);
+      double weight = double.parse(weightController.text.replaceAll(",", "."));
+      double height = double.parse(heightController.text.replaceAll(",", "."));
 
       double imc = weight / (height * height);
 
       if (imc < 18.5) {
-        _info = "Abaixo do peso (IMC = ${imc.toStringAsFixed(2)})";
+        _info = "Abaixo do peso (IMC = ${imc.toStringAsFixed(1)})";
       } else if (imc >= 18.5 && imc <= 24.9) {
-        _info = "Peso normal (IMC = ${imc.toStringAsFixed(2)})";
+        _info = "Peso normal (IMC = ${imc.toStringAsFixed(1)})";
       } else if (imc >= 25 && imc <= 29.9) {
-        _info = "Acima do peso (IMC = ${imc.toStringAsFixed(2)})";
+        _info = "Acima do peso (IMC = ${imc.toStringAsFixed(1)})";
       } else if (imc >= 30 && imc <= 34.9) {
-        _info = "Obesidade grau 1 (IMC = ${imc.toStringAsFixed(2)})";
+        _info = "Obesidade grau 1 (IMC = ${imc.toStringAsFixed(1)})";
       } else if (imc >= 35 && imc <= 39.9) {
-        _info = "Obesidade grau 2 (IMC = ${imc.toStringAsFixed(2)})";
+        _info = "Obesidade grau 2 (IMC = ${imc.toStringAsFixed(1)})";
       } else if (imc >= 40) {
-        _info = "Obesidade grau 3 (IMC = ${imc.toStringAsFixed(2)})";
+        _info = "Obesidade grau 3 (IMC = ${imc.toStringAsFixed(1)})";
       }
     });
   }
@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
           child: Form(
               key: _formKey,
               child: Column(
